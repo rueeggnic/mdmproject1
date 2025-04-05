@@ -1,11 +1,19 @@
 # model_prediction.py
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+import os
 
 def run_simulation(pv_faktor=1, wind_faktor=1, kernkraft_faktor=1):
-    df_zufluss = pd.read_csv("data/processed/zuflussmenge.csv", parse_dates=["date"])
-    df_strom = pd.read_csv("data/processed/stromdaten.csv", parse_dates=["date"])
+    # Dynamischer Pfad zum aktuellen Skript
+    base_path = os.path.dirname(os.path.abspath(__file__))
+
+    # Pfade zu den Daten relativ zum Skript
+    zufluss_path = os.path.join(base_path, '..', 'processed', 'zuflussmenge.csv')
+    strom_path = os.path.join(base_path, '..', 'processed', 'stromdaten.csv')
+
+    # CSVs laden
+    df_zufluss = pd.read_csv(zufluss_path, parse_dates=["date"])
+    df_strom = pd.read_csv(strom_path, parse_dates=["date"])
 
     df_strom.fillna({"photovoltaik": 0, "wind": 0}, inplace=True)
     df = df_strom.merge(df_zufluss, on="date")
