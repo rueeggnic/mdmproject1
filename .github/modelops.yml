@@ -21,6 +21,9 @@ jobs:
       - name: 📦 Abhängigkeiten installieren
         run: pip install -r requirements.txt
 
-      - name: ✅ Test: Modellcode ausführen
+      - name: ✅ Modellcode ausführen
         working-directory: ./data/models
         run: python model_prediction.py
+
+      - name: 📤 Daten in MongoDB hochladen
+        run: python data/upload_to_mongo.py -u "${{ secrets.MONGODB_URI }}"
