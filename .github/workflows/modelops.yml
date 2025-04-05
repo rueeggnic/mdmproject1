@@ -26,4 +26,4 @@ jobs:
         run: python model_prediction.py
 
       - name: 📤 Daten in MongoDB hochladen
-        run: python data/upload_to_mongo.py -u "${{ secrets.MONGODB_URI }}"
+        run: python data/upload_to_mongo.py -u "${{ secrets.MONGODB_URI1 }}"
