@@ -3,7 +3,7 @@ name: 🚀 Deploy Flask App to Azure Web App
 on:
   push:
     branches:
-      - main  # immer wenn du auf main pushst
+      - main
 
 jobs:
   build-and-deploy:
@@ -21,12 +21,13 @@ jobs:
     - name: 📦 Install dependencies
       run: pip install -r requirements.txt
 
-    - name: 🐳 Build Docker image
+    - name: Build Docker image
       run: docker build . -t flaskapp
 
-    - name: 🚀 Deploy to Azure Web App
+    - name: Deploy to Azure Web App (Docker Linux)
       uses: azure/webapps-deploy@v2
       with:
-        app-name: mdmproj1  # ⬅️ exakt wie dein Azure App Service Name
+        app-name: mdmproj1                     # ⚠️ dein App Service Name
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         images: flaskapp
+        is-linux: true                         # 🔑 wichtig für Linux + Docker!
