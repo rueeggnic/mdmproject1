@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Container to Azure Web App
+name: Docker Deployment to Azure Web App
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
     - name: Build Docker image
       run: docker build -t myapp:latest .
 
-    - name: Deploy to Azure Web App (Container)
+    - name: Deploy to Azure Web App with Docker
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.AZURE_WEBAPP_NAME }}
