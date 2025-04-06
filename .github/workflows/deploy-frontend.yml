@@ -1,20 +1,23 @@
-name: Deploy Flask App (Dockerfile) to Azure Web App
+name: 🚀 Deploy with Dockerfile via ZIP deploy
 
 on:
+  workflow_dispatch:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: 📥 Checkout code
+        uses: actions/checkout@v2
 
-    - name: Deploy with Dockerfile via ZIP deploy
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: mdmproj1
-        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-        package: .
+      - name: 🚀 Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: mdmproj1
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .
+          slot-name: ''
